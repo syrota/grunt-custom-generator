@@ -50,7 +50,7 @@ module.exports = function (grunt) {
 
     function processFile (fileName, template, config, args) {
 
-        console.log(config.data || {}, ' -> ', template, ' -> ', fileName);
+//        console.log(config.data || {}, ' -> ', template, ' -> ', fileName);
         if (grunt.file.exists(fileName)) {
             grunt.fail.warn('File ' + fileName + ' already exists');
         }
@@ -80,14 +80,12 @@ module.exports = function (grunt) {
                 files = grunt.task.normalizeMultiTaskFiles(config),
                 args = Array.prototype.slice.call(arguments);
 
-            console.log('config:');
-            console.log(config);
-
-            console.log('files:');
-            console.log(files);
-
-            console.log('args:');
-            console.log(args);
+//            console.log('config:');
+//            console.log(config);
+//            console.log('files:');
+//            console.log(files);
+//            console.log('args:');
+//            console.log(args);
 
             if (!files.length) {
                 grunt.fail.fatal('No files to process');
@@ -98,17 +96,17 @@ module.exports = function (grunt) {
             }
 
             files.forEach(function (file) {
-                console.log('processing file:');
+//                console.log('processing file:');
                 var dest = replaceDollarSignsWith(file.dest, args);
-                console.log('  dest:', dest);
+//                console.log('  dest:', dest);
 
                 if (file.src.length === 1) {
                     // template is specified
-                    console.log('  src:', file.src);
+//                    console.log('  src:', file.src);
                     processFile(dest, file.src[0], config, args);
                 } else if ((file.src.length === 0) && (file.orig.src.length === 1)) {
                     // template is '$empty' ?
-                    console.log('  src:', file.orig.src);
+//                    console.log('  src:', file.orig.src);
                     processFile(dest, file.orig.src[0], config, args);
                 }
             });
