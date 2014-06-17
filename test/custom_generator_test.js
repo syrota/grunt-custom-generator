@@ -3,46 +3,49 @@
 var grunt = require('grunt');
 
 /*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
+ ======== A Handy Little Nodeunit Reference ========
+ https://github.com/caolan/nodeunit
 
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
+ Test methods:
+ test.expect(numAssertions)
+ test.done()
+ Test assertions:
+ test.ok(value, [message])
+ test.equal(actual, expected, [message])
+ test.notEqual(actual, expected, [message])
+ test.deepEqual(actual, expected, [message])
+ test.notDeepEqual(actual, expected, [message])
+ test.strictEqual(actual, expected, [message])
+ test.notStrictEqual(actual, expected, [message])
+ test.throws(block, [error], [message])
+ test.doesNotThrow(block, [error], [message])
+ test.ifError(value)
+ */
 
 exports.custom_generator = {
-  setUp: function(done) {
-    // setup here if necessary
-    done();
-  },
-  default_options: function(test) {
-    test.expect(1);
+    setUp: function (done) {
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+        // Actually load this plugin's task(s).
 
-    test.done();
-  },
-  custom_options: function(test) {
-    test.expect(1);
+//        grunt.loadTasks('tasks');
 
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
+        // setup here if necessary
+        done();
+    },
+    simple: function (test) {
 
-    test.done();
-  },
+
+        console.log('run...');
+        var config = grunt.file.readJSON("test/simple/config.json");
+
+        var expected = Object.keys(config.expected);
+        test.expect(expected.length * 2);
+
+        expected.forEach(function (filename) {
+            test.ok(grunt.file.exists(filename), 'file ' + filename + 'must exists');
+            test.equal(grunt.file.read(filename), config.expected[filename], 'file contents should be equal');
+        });
+
+        test.done();
+    }
 };

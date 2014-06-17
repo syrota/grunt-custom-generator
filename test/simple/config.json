@@ -1,0 +1,21 @@
+{
+
+    "config": {
+        "generate": {
+            "testing": {
+                "files": {
+                    "tmp/simple/$0.test": "test/simple/template.txt",
+                    "tmp/simple/$0.empty": "$empty"
+                }
+            }
+        }
+    },
+
+    "task": "testing:my-file-name",
+
+    "expected": {
+        "tmp/simple/my-file-name.test": "This is a my-file-name",
+        "tmp/simple/my-file-name.empty": ""
+    }
+
+}
